@@ -441,3 +441,8 @@ Make sure to update the `cprest` and `intent_host` to match this callback URL .
  * Is the `onLoginSuccess` method being executed in the `LoginActivity`. On launch of your app, be sure to start the app on the LoginActivity so authentication routines execute on launch and take you to the authenticated activity.
  * If you are plan to test with Android API 24 or above, you will need to use Chrome to launch the OAuth flow.  
  * Note that the emulators (both the Google-provided x86 and Genymotion versions) for API 24+ versions can introduce intermittent issues when initiating the OAuth flow for the first time.  For best results, use an device for this project.
+
+
+# Android_Twitter
+Re-completed Codepath Twitter Android app with additional features
+
