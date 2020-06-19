@@ -79,12 +79,14 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvBody;
         TextView tvScreenName;
         TextView tvTimeStamp;
+        ImageView ivEmbeddedImage;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
             tvBody = itemView.findViewById(R.id.tvBody);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             tvTimeStamp = itemView.findViewById(R.id.tvTimeStamp);
+            ivEmbeddedImage = itemView.findViewById(R.id.ivEmbeddedImage);
             // I need to set itemView's onClickListener so that we can see each item
             itemView.setOnClickListener(this);
         }
@@ -95,6 +97,14 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvScreenName.setText(tweet.user.screenName);
             tvTimeStamp.setText(getRelativeTimeAgo(tweet.createdAt));
             Glide.with(context).load(tweet.user.profileImageUrl).transform(new RoundedCorners(25)).into(ivProfileImage);
+            // Check if there is any embedded media. If not don't show anything
+            if(tweet.mediaURL != null) {
+                ivEmbeddedImage.setVisibility(View.VISIBLE);
+                Glide.with(context).load(tweet.mediaURL).into(ivEmbeddedImage);
+            } else{
+                //don't show at all
+                ivEmbeddedImage.setVisibility(View.GONE);
+            }
         }
 
 

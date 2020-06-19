@@ -46,12 +46,21 @@
         android:text="TextView" />
 
     <ImageView
+        android:id="@+id/ivEmbeddedImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@+id/tvBody"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        app:srcCompat="@android:drawable/btn_dialog" />
+
+    <ImageView
         android:id="@+id/ivRetweet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvBody"
-        android:layout_marginTop="56dp"
+        android:layout_below="@+id/ivEmbeddedImage"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         app:srcCompat="@drawable/ic_vector_retweet" />
 
     <TextView
@@ -93,5 +102,7 @@
         android:layout_marginEnd="80dp"
         android:layout_toStartOf="@+id/ivRetweet"
         app:srcCompat="@drawable/vector_compose_dm_shortcut" />
+
+
 
 </RelativeLayout>

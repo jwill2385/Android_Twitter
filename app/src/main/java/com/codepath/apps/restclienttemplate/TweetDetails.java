@@ -45,6 +45,7 @@ public class TweetDetails extends AppCompatActivity {
     ImageView ivRetweet;
     ImageView ivFavorite;
     ImageView ivReply;
+    ImageView ivEmbeddedImage;
 
     Boolean retweeted;
     Boolean favorited;
@@ -72,6 +73,7 @@ public class TweetDetails extends AppCompatActivity {
         ivRetweet = findViewById(R.id.ivRetweet);
         ivFavorite = findViewById(R.id.ivFavorite);
         ivReply = findViewById(R.id.ivReply);
+        ivEmbeddedImage = findViewById(R.id.ivEmbeddedImage);
 
 
 
@@ -101,6 +103,15 @@ public class TweetDetails extends AppCompatActivity {
         // if favorited is true already set favorite color icon
         if(favorited){
             ivFavorite.setColorFilter(getResources().getColor(R.color.colorRed));
+        }
+
+        // check if there is an embedded image
+        if(tweet.mediaURL != null) {
+            ivEmbeddedImage.setVisibility(View.VISIBLE);
+            Glide.with(this).load(tweet.mediaURL).into(ivEmbeddedImage);
+        } else{
+            //don't show at all
+            ivEmbeddedImage.setVisibility(View.GONE);
         }
 
         //set pictures

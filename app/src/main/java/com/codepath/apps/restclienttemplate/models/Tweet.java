@@ -34,6 +34,8 @@ public class Tweet {
     public Boolean retweeted;
     @ColumnInfo
     public Boolean favorited;
+    @ColumnInfo
+    public String mediaURL;
 
     @ColumnInfo
     public long userId;
@@ -59,6 +61,18 @@ public class Tweet {
         tweet.numFavorites = jsonObject.getInt("favorite_count");
         tweet.retweeted = jsonObject.getBoolean("retweeted");
         tweet.favorited = jsonObject.getBoolean("favorited");
+        JSONObject media = null;
+        if(jsonObject.getJSONObject("entities").has("media")) {
+          JSONArray mediaArray  = (jsonObject.getJSONObject("entities")).getJSONArray("media");
+          //Get the media object from our JSON Array
+          media = mediaArray.getJSONObject(0);
+        }
+        if(media != null){
+            // this means we have an embedded image in tweet
+            tweet.mediaURL = media.getString("media_url_https");
+        } else {
+            tweet.mediaURL = null;
+        }
         return tweet;
 
     }
