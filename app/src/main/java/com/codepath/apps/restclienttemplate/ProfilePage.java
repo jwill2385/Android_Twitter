@@ -1,7 +1,10 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +38,7 @@ public class ProfilePage extends AppCompatActivity {
     List<User> followers;
     List<User> following;
     TwitterClient client;
+    Button btnLogout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +57,19 @@ public class ProfilePage extends AppCompatActivity {
         tvFollowingTitle = findViewById(R.id.tvFollowingTitle);
         tvFollowers = findViewById(R.id.tvFollowers);
         tvFollowing = findViewById(R.id.tvFollowing);
+        btnLogout = findViewById(R.id.btnLogout);
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // If i press logout button reset token and go back to login screen
+                client.clearAccessToken();
+                Intent i = new Intent(ProfilePage.this, LoginActivity.class);
+                startActivity(i);
+                finish();
+
+            }
+        });
 
         user = Parcels.unwrap(getIntent().getParcelableExtra("user"));
         Log.i(TAG, "Showing profile page for " + user.screenName);

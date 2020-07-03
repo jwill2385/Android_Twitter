@@ -12,4 +12,11 @@
         android:icon="@drawable/ic_launcher_twitter_round"
         android:title="profile"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/miActionProgress"
+        android:title="Loading..."
+        android:visible="false"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        app:actionLayout="@layout/action_view_progress" />
 </menu>

@@ -73,5 +73,14 @@
         android:layout_marginEnd="-10dp"
         android:text="TextView" />
 
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvProfileTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="Logout" />
+
 
 </RelativeLayout>

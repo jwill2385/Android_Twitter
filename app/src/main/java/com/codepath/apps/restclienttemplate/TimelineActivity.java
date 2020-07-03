@@ -43,6 +43,7 @@ public class TimelineActivity extends AppCompatActivity {
     SwipeRefreshLayout swipeContainer;
     EndlessRecyclerViewScrollListener scrollListener;
     TweetDao tweetDao;
+    MenuItem miActionProgressItem; // define progress bar
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         client = TwitterApp.getRestClient(this);
         tweetDao = ((TwitterApp) getApplicationContext()).getMyDatabase().tweetDao();
+
 
         swipeContainer = findViewById(R.id.swipeContainer);
         // Configure the refreshing colors
@@ -100,14 +102,24 @@ public class TimelineActivity extends AppCompatActivity {
                 adapter.addAll(tweetsFromDB);
             }
         });
-        populateHomeTimeline();
+        //populateHomeTimeline();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu: this dds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // Store instance of the menu item containing progress
+        miActionProgressItem = menu.findItem(R.id.miActionProgress);
+        // now populate the timeline here since we have access to the progress bar.
+        populateHomeTimeline();
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -123,6 +135,16 @@ public class TimelineActivity extends AppCompatActivity {
             Toast.makeText(this, "Profile Page", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showProgressBar() {
+        // Show progress item
+        miActionProgressItem.setVisible(true);
+    }
+
+    public void hideProgressBar() {
+        // Hide progress item
+        miActionProgressItem.setVisible(false);
     }
 
     @Override
@@ -169,6 +191,8 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void populateHomeTimeline() {
+        // show progress bar
+        showProgressBar();
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
@@ -197,6 +221,8 @@ public class TimelineActivity extends AppCompatActivity {
 
                         }
                     });
+                    // remove progress bar
+                    hideProgressBar();
                 } catch (JSONException e) {
                    Log.e(TAG, "Json exception", e);
                 }
